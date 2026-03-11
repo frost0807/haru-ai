@@ -1,0 +1,33 @@
+# 환경 설정
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# 가상환경
+venv/
+.venv/
+
+# ChromaDB 데이터
+data/chroma/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 테스트
+.pytest_cache/
+htmlcov/
+.coverage

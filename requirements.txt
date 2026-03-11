@@ -1,0 +1,23 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+
+# LLM
+google-genai
+
+# Database
+sqlalchemy
+psycopg2-binary
+alembic
+
+# Vector DB
+chromadb
+
+# Utilities
+python-dotenv
+pydantic
+httpx
+
+# Audio (Phase 3)
+# openai
+# python-multipart
