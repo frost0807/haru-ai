@@ -26,10 +26,13 @@ def list_characters():
 
 
 def _handle_gemini_error(e: ServerError | ClientError):
-    """Gemini API 에러 → HTTP 에러 변환"""
-    if e.status_code == 503:
+    """Gemini API 에러 → HTTP 에러 변환
+    SDK 버전에 따라 status_code 속성명이 다를 수 있어 getattr로 안전하게 읽음
+    """
+    status = getattr(e, "status_code", None) or getattr(e, "code", None)
+    if status == 503 or "503" in str(e):
         raise HTTPException(status_code=503, detail="AI 서버가 잠시 과부하 상태입니다. 잠시 후 다시 시도해주세요.")
-    if e.status_code == 429:
+    if status == 429 or "429" in str(e):
         raise HTTPException(status_code=429, detail="API 호출 한도를 초과했습니다. 잠시 후 다시 시도해주세요.")
     raise HTTPException(status_code=500, detail="AI 응답 중 오류가 발생했습니다.")
 
