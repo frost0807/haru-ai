@@ -11,11 +11,12 @@ psycopg2-binary
 alembic
 
 # Vector DB
-chromadb
+pgvector
 
 # Utilities
 python-dotenv
 pydantic
+pydantic-settings
 httpx
 
 # Audio (Phase 3)
