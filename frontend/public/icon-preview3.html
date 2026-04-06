@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>하루AI 아이콘 - E 쓰기 변형</title>
+<style>
+  body { background: #fafaf8; font-family: sans-serif; padding: 40px; }
+  h2 { color: #1c1917; margin-bottom: 28px; }
+  .grid { display: flex; gap: 36px; flex-wrap: wrap; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .label { font-size: 12px; text-align: center; color: #78716c; line-height: 1.5; }
+  .num { font-size: 15px; font-weight: 700; color: #44403c; }
+  svg { width: 130px; height: 130px; background: white; border-radius: 28px; box-shadow: 0 2px 14px rgba(0,0,0,0.09); overflow: hidden; }
+</style>
+</head>
+<body>
+<h2>E 스타일 + 쓰는 중인 느낌 5종</h2>
+<div class="grid">
+
+  <!-- 공통 요소 정의 (광선+원+줄) 매크로처럼 각 svg에 반복 -->
+
+  <!-- V1: 기본 쓰기 (마지막 줄 반쯤 + 연필 끝 닿음) -->
+  <div class="item">
+    <div class="num">①</div>
+    <svg viewBox="0 0 64 64" fill="none">
+      <!-- 광선 -->
+      <line x1="32" y1="3"  x2="32" y2="8"  stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="6"  x2="43" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="18" x2="52" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="61" y1="33" x2="56" y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="48" x2="52" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="59" x2="43" y2="55" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="18" y1="6"  x2="21" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="18" x2="12" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="3"  y1="33" x2="8"  y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="48" x2="12" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <!-- 원형 일기장 -->
+      <circle cx="32" cy="33" r="20" fill="#fef9c3" stroke="#f59e0b" stroke-width="2"/>
+      <!-- 완성된 줄 -->
+      <line x1="20" y1="27" x2="44" y2="27" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="20" y1="33" x2="44" y2="33" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- 반쯤 쓰여진 마지막 줄 -->
+      <line x1="20" y1="39" x2="37" y2="39" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- 연필 (45도, 끝이 (37,39)에 닿음) -->
+      <g transform="rotate(45, 37, 39)">
+        <rect x="33" y="8"  width="8" height="5"  rx="2" fill="#fca5a5" stroke="#ef4444"  stroke-width="1"/>
+        <rect x="33" y="13" width="8" height="3"  rx="0" fill="#a3a3a3" stroke="#737373"  stroke-width="1"/>
+        <rect x="33" y="16" width="8" height="15" rx="1" fill="#fde68a" stroke="#d97706"  stroke-width="1.5"/>
+        <rect x="33" y="31" width="8" height="4"  rx="0" fill="#fef3c7" stroke="#d97706"  stroke-width="1"/>
+        <polygon points="33,35 41,35 37,39" fill="#92400e"/>
+      </g>
+    </svg>
+    <div class="label">기본 쓰기<br>마지막 줄 반쯤</div>
+  </div>
+
+  <!-- V2: 잉크 점 (막 쓴 느낌) -->
+  <div class="item">
+    <div class="num">②</div>
+    <svg viewBox="0 0 64 64" fill="none">
+      <line x1="32" y1="3"  x2="32" y2="8"  stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="6"  x2="43" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="18" x2="52" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="61" y1="33" x2="56" y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="48" x2="52" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="59" x2="43" y2="55" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="18" y1="6"  x2="21" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="18" x2="12" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="3"  y1="33" x2="8"  y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="48" x2="12" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="32" cy="33" r="20" fill="#fef9c3" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="20" y1="27" x2="44" y2="27" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="20" y1="33" x2="44" y2="33" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="20" y1="39" x2="37" y2="39" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- 잉크 점 (연필 끝 위치) -->
+      <circle cx="37" cy="39" r="2" fill="#d97706" opacity="0.85"/>
+      <g transform="rotate(45, 37, 39)">
+        <rect x="33" y="8"  width="8" height="5"  rx="2" fill="#fca5a5" stroke="#ef4444"  stroke-width="1"/>
+        <rect x="33" y="13" width="8" height="3"  rx="0" fill="#a3a3a3" stroke="#737373"  stroke-width="1"/>
+        <rect x="33" y="16" width="8" height="15" rx="1" fill="#fde68a" stroke="#d97706"  stroke-width="1.5"/>
+        <rect x="33" y="31" width="8" height="4"  rx="0" fill="#fef3c7" stroke="#d97706"  stroke-width="1"/>
+        <polygon points="33,35 41,35 37,39" fill="#92400e"/>
+      </g>
+    </svg>
+    <div class="label">잉크 점<br>막 쓴 느낌</div>
+  </div>
+
+  <!-- V3: 더 눕힌 각도 (30도) -->
+  <div class="item">
+    <div class="num">③</div>
+    <svg viewBox="0 0 64 64" fill="none">
+      <line x1="32" y1="3"  x2="32" y2="8"  stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="6"  x2="43" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="18" x2="52" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="61" y1="33" x2="56" y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="48" x2="52" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="59" x2="43" y2="55" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="18" y1="6"  x2="21" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="18" x2="12" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="3"  y1="33" x2="8"  y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="48" x2="12" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="32" cy="33" r="20" fill="#fef9c3" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="20" y1="27" x2="44" y2="27" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="20" y1="33" x2="44" y2="33" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="20" y1="39" x2="37" y2="39" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- 연필 (30도, 더 눕혀진 각도) -->
+      <g transform="rotate(30, 37, 39)">
+        <rect x="33" y="8"  width="8" height="5"  rx="2" fill="#fca5a5" stroke="#ef4444"  stroke-width="1"/>
+        <rect x="33" y="13" width="8" height="3"  rx="0" fill="#a3a3a3" stroke="#737373"  stroke-width="1"/>
+        <rect x="33" y="16" width="8" height="15" rx="1" fill="#fde68a" stroke="#d97706"  stroke-width="1.5"/>
+        <rect x="33" y="31" width="8" height="4"  rx="0" fill="#fef3c7" stroke="#d97706"  stroke-width="1"/>
+        <polygon points="33,35 41,35 37,39" fill="#92400e"/>
+      </g>
+    </svg>
+    <div class="label">더 눕힌 각도<br>30도</div>
+  </div>
+
+  <!-- V4: 반짝이 (영감이 떠오르는 느낌) -->
+  <div class="item">
+    <div class="num">④</div>
+    <svg viewBox="0 0 64 64" fill="none">
+      <line x1="32" y1="3"  x2="32" y2="8"  stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="6"  x2="43" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="18" x2="52" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="61" y1="33" x2="56" y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="48" x2="52" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="59" x2="43" y2="55" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="18" y1="6"  x2="21" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="18" x2="12" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="3"  y1="33" x2="8"  y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="48" x2="12" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="32" cy="33" r="20" fill="#fef9c3" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="20" y1="27" x2="44" y2="27" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="20" y1="33" x2="44" y2="33" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="20" y1="39" x2="37" y2="39" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- 반짝이 (연필 끝 근처) -->
+      <path d="M 33 35 L 34 37.5 L 36.5 38.5 L 34 39.5 L 33 42 L 32 39.5 L 29.5 38.5 L 32 37.5 Z" fill="#fb923c" opacity="0.9"/>
+      <circle cx="29" cy="34" r="1.2" fill="#fbbf24" opacity="0.8"/>
+      <circle cx="31" cy="43" r="0.9" fill="#fbbf24" opacity="0.7"/>
+      <g transform="rotate(45, 37, 39)">
+        <rect x="33" y="8"  width="8" height="5"  rx="2" fill="#fca5a5" stroke="#ef4444"  stroke-width="1"/>
+        <rect x="33" y="13" width="8" height="3"  rx="0" fill="#a3a3a3" stroke="#737373"  stroke-width="1"/>
+        <rect x="33" y="16" width="8" height="15" rx="1" fill="#fde68a" stroke="#d97706"  stroke-width="1.5"/>
+        <rect x="33" y="31" width="8" height="4"  rx="0" fill="#fef3c7" stroke="#d97706"  stroke-width="1"/>
+        <polygon points="33,35 41,35 37,39" fill="#92400e"/>
+      </g>
+    </svg>
+    <div class="label">반짝이<br>영감 느낌</div>
+  </div>
+
+  <!-- V5: 물결 마지막 줄 (감성적인 느낌) -->
+  <div class="item">
+    <div class="num">⑤</div>
+    <svg viewBox="0 0 64 64" fill="none">
+      <line x1="32" y1="3"  x2="32" y2="8"  stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="6"  x2="43" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="18" x2="52" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="61" y1="33" x2="56" y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="57" y1="48" x2="52" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="46" y1="59" x2="43" y2="55" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="18" y1="6"  x2="21" y2="10" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="18" x2="12" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="3"  y1="33" x2="8"  y2="33" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <line x1="7"  y1="48" x2="12" y2="45" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="32" cy="33" r="20" fill="#fef9c3" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="20" y1="27" x2="44" y2="27" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="20" y1="33" x2="44" y2="33" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- 마지막 줄: 물결 모양 -->
+      <path d="M 20 39 Q 24 37 27 39 Q 30 41 33 39 Q 35 38 37 39" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <g transform="rotate(45, 37, 39)">
+        <rect x="33" y="8"  width="8" height="5"  rx="2" fill="#fca5a5" stroke="#ef4444"  stroke-width="1"/>
+        <rect x="33" y="13" width="8" height="3"  rx="0" fill="#a3a3a3" stroke="#737373"  stroke-width="1"/>
+        <rect x="33" y="16" width="8" height="15" rx="1" fill="#fde68a" stroke="#d97706"  stroke-width="1.5"/>
+        <rect x="33" y="31" width="8" height="4"  rx="0" fill="#fef3c7" stroke="#d97706"  stroke-width="1"/>
+        <polygon points="33,35 41,35 37,39" fill="#92400e"/>
+      </g>
+    </svg>
+    <div class="label">물결 마지막 줄<br>감성 느낌</div>
+  </div>
+
+</div>
+</body>
+</html>

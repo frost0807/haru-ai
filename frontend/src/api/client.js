@@ -4,15 +4,17 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000/api/v1",
 });
 
-// 임시 사용자 ID (Phase 2에서 인증으로 교체)
-const USER_ID = "user_001";
+// 로그인한 사용자 ID (AuthContext에서 setUserId로 주입)
+let _userId = null;
+export const setUserId = (id) => { _userId = id; };
+export const getUserId = () => _userId;
 
 // 채팅
 export const getCharacters = () =>
   api.get("/chat/characters");
 
 export const startChat = (diaryDate, characterId) =>
-  api.post("/chat/start", { user_id: USER_ID, diary_date: diaryDate, character_id: characterId });
+  api.post("/chat/start", { user_id: _userId, diary_date: diaryDate, character_id: characterId });
 
 export const sendMessage = (sessionId, message) =>
   api.post("/chat/message", { session_id: sessionId, message });
@@ -22,7 +24,7 @@ export const finishChat = (sessionId) =>
 
 // 일기
 export const getDiaries = (params) =>
-  api.get("/diary", { params: { user_id: USER_ID, ...params } });
+  api.get("/diary", { params: { user_id: _userId, ...params } });
 
 export const getDiary = (diaryId) =>
   api.get(`/diary/${diaryId}`);
@@ -32,7 +34,7 @@ export const deleteDiary = (diaryId) =>
 
 // 사용자 캐릭터 설정
 export const getUserCharacter = () =>
-  api.get(`/users/${USER_ID}/character`);
+  api.get(`/users/${_userId}/character`);
 
 export const updateUserCharacter = (characterId) =>
-  api.put(`/users/${USER_ID}/character`, { character_id: characterId });
+  api.put(`/users/${_userId}/character`, { character_id: characterId });

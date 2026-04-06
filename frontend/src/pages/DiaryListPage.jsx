@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getDiaries } from "../api/client";
+import { useAuth } from "../contexts/AuthContext";
 import EmotionBadge from "../components/EmotionBadge";
 import Spinner from "../components/Spinner";
 
@@ -9,6 +10,7 @@ export default function DiaryListPage() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { signOut } = useAuth();
 
   useEffect(() => {
     getDiaries()
@@ -29,12 +31,21 @@ export default function DiaryListPage() {
             <h1 className="text-2xl font-bold text-indigo-600">내 일기</h1>
             <p className="text-sm text-gray-400 mt-1">총 {total}개의 일기</p>
           </div>
-          <button
-            onClick={() => navigate("/chat")}
-            className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-medium transition"
-          >
-            + 새 일기
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => navigate("/chat")}
+              className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-medium transition"
+            >
+              + 새 일기
+            </button>
+            <button
+              onClick={signOut}
+              className="text-gray-400 hover:text-gray-600 text-sm px-2 py-2 transition"
+              title="로그아웃"
+            >
+              로그아웃
+            </button>
+          </div>
         </div>
 
         {/* 목록 */}

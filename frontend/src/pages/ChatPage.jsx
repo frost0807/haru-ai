@@ -184,34 +184,35 @@ export default function ChatPage() {
         {/* 입력 영역 */}
         {status !== "idle" && (
           <div className="mt-4 flex flex-col gap-2">
-            {status === "ready_to_finish" && (
+            {status === "ready_to_finish" || status === "finishing" ? (
               <button
                 onClick={handleFinish}
                 disabled={loading}
-                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl font-medium transition disabled:opacity-50"
+                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl font-medium transition disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                일기 쓰기 ✍️
+                {loading ? <><Spinner size="sm" /><span>일기 쓰는 중...</span></> : "일기 쓰기 ✍️"}
               </button>
+            ) : (
+              <div className="flex gap-2">
+                <textarea
+                  ref={inputRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="메시지를 입력하세요..."
+                  rows={2}
+                  disabled={loading}
+                  className="flex-1 resize-none border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:opacity-50"
+                />
+                <button
+                  onClick={handleSend}
+                  disabled={loading || !input.trim()}
+                  className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 rounded-xl transition disabled:opacity-50 flex items-center justify-center w-16"
+                >
+                  {loading ? <Spinner size="sm" /> : "전송"}
+                </button>
+              </div>
             )}
-            <div className="flex gap-2">
-              <textarea
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="메시지를 입력하세요..."
-                rows={2}
-                disabled={loading || status === "finishing"}
-                className="flex-1 resize-none border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:opacity-50"
-              />
-              <button
-                onClick={handleSend}
-                disabled={loading || !input.trim() || status === "finishing"}
-                className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 rounded-xl transition disabled:opacity-50 flex items-center justify-center w-16"
-              >
-                {loading ? <Spinner size="sm" /> : "전송"}
-              </button>
-            </div>
           </div>
         )}
       </div>
