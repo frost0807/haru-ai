@@ -14,7 +14,12 @@ export const getCharacters = () =>
   api.get("/chat/characters");
 
 export const startChat = (diaryDate, characterId) =>
-  api.post("/chat/start", { user_id: _userId, diary_date: diaryDate, character_id: characterId });
+  api.post("/chat/start", {
+    user_id: _userId,
+    diary_date: diaryDate,
+    character_id: characterId,
+    current_hour: new Date().getHours(),  // 0~23, 시간대 인식용
+  });
 
 export const sendMessage = (sessionId, message) =>
   api.post("/chat/message", { session_id: sessionId, message });

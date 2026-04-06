@@ -5,6 +5,7 @@ class ChatStartRequest(BaseModel):
     user_id: str
     diary_date: str | None = None  # YYYY-MM-DD, 기본값 오늘
     character_id: str = "haru"  # 선택한 캐릭터 ID
+    current_hour: int | None = None  # 0~23, 사용자 현지 시간 (시간대 인식용)
 
 
 class ChatStartResponse(BaseModel):

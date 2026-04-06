@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException
 from google.genai.errors import ClientError, ServerError
@@ -40,11 +40,14 @@ def _handle_gemini_error(e: ServerError | ClientError):
 @router.post("/start", response_model=ChatStartResponse)
 async def start_chat(request: ChatStartRequest, db: Session = Depends(get_db)):
     """일기 작성 세션을 시작한다."""
-    diary_date = (
-        date.fromisoformat(request.diary_date) if request.diary_date else date.today()
-    )
+    if request.diary_date:
+        diary_date = date.fromisoformat(request.diary_date)
+    else:
+        today = date.today()
+        # 새벽 0~5시는 아직 전날로 간주
+        diary_date = today - timedelta(days=1) if (request.current_hour is not None and request.current_hour < 5) else today
     try:
-        return chat_service.start_session(request.user_id, diary_date, db, request.character_id)
+        return chat_service.start_session(request.user_id, diary_date, db, request.character_id, request.current_hour)
     except ValueError as e:
         # DIARY_EXISTS:{diary_id} 형태로 기존 일기 ID 전달
         msg = str(e)
