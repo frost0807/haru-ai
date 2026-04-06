@@ -33,4 +33,4 @@ htmlcov/
 .coverage
 
 # key 값
-/keys
+keys/
