@@ -56,7 +56,7 @@ export default function ReflectPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="bg-gray-50 flex flex-col overflow-hidden" style={{ height: "100dvh" }}>
       {/* 헤더 */}
       <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
         <button
@@ -72,7 +72,7 @@ export default function ReflectPage() {
       </div>
 
       {/* 대화 영역 */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-6 max-w-lg mx-auto w-full">
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-6 max-w-lg mx-auto w-full">
         {items.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full mt-24 text-center text-gray-400 gap-2">
             <span className="text-4xl">📖</span>

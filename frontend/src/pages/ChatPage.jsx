@@ -108,11 +108,11 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-4">
-      <div className="w-full max-w-lg flex flex-col" style={{ height: "90vh" }}>
+    <div className="bg-gray-50 flex flex-col items-center overflow-hidden" style={{ height: "100dvh" }}>
+      <div className="w-full max-w-lg flex flex-col h-full px-4 pt-6 pb-4">
 
         {/* 헤더 */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-4 flex-shrink-0">
           <h1 className="text-2xl font-bold text-indigo-600">하루AI</h1>
           {character ? (
             <div className="flex items-center justify-center gap-1 mt-1">
@@ -134,7 +134,7 @@ export default function ChatPage() {
         </div>
 
         {/* 채팅 영역 */}
-        <div className="flex-1 bg-gray-100 rounded-2xl p-4 overflow-y-auto">
+        <div className="flex-1 min-h-0 bg-gray-100 rounded-2xl p-4 overflow-y-auto">
           {status === "idle" ? (
             <div className="h-full flex flex-col items-center justify-center gap-4">
               <p className="text-gray-400 text-sm">오늘 하루 어땠나요?</p>
@@ -183,7 +183,7 @@ export default function ChatPage() {
 
         {/* 입력 영역 */}
         {status !== "idle" && (
-          <div className="mt-4 flex flex-col gap-2">
+          <div className="mt-3 flex-shrink-0 flex flex-col gap-2">
             {status === "ready_to_finish" || status === "finishing" ? (
               <button
                 onClick={handleFinish}
