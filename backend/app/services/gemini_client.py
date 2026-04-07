@@ -2,8 +2,8 @@ from google import genai
 
 from app.config import settings
 
-# Gemini 3.1 Flash Lite Preview 모델 ID (3.0 Flash 대비 7.5x 저렴, 더 빠름)
-CHAT_MODEL = "gemini-3.1-flash-lite-preview"
+# Gemini 2.5 Flash (안정 버전)
+CHAT_MODEL = "gemini-2.5-flash"
 
 _client: genai.Client | None = None
 
