@@ -18,6 +18,7 @@ python-dotenv
 pydantic
 pydantic-settings
 httpx
+cryptography
 
 # Audio (Phase 3)
 # openai

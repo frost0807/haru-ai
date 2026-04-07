@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.models.conversation import Conversation
 from app.models.diary import Diary
+from app.services.crypto_service import encrypt, decrypt
 from app.services.gemini_client import get_gemini_client, CHAT_MODEL
 
 _SYSTEM_PROMPT = """아래 대화 내용을 바탕으로 오늘의 일기를 작성해줘.
@@ -47,7 +48,7 @@ def save_diary(
     diary = Diary(
         user_id=user_id,
         diary_date=diary_date,
-        content=content,
+        content=encrypt(content),  # DB 저장 전 암호화
         primary_emotion=emotion.get("primary_emotion"),
         secondary_emotion=emotion.get("secondary_emotion"),
         emotion_intensity=emotion.get("intensity"),
@@ -68,6 +69,7 @@ def save_diary(
 
     db.commit()
     db.refresh(diary)
+    diary.content = content  # 호출자에게는 평문 반환 (rag_service 등에서 사용)
     return diary
 
 
@@ -83,13 +85,16 @@ def get_diary_by_date(db: Session, user_id: str, diary_date: date) -> Diary | No
 def get_recent_diaries(db: Session, user_id: str, days: int = 3) -> list[Diary]:
     """최근 n일 일기 조회 (채팅 컨텍스트 주입용)"""
     cutoff = date.today() - timedelta(days=days)
-    return (
+    diaries = (
         db.query(Diary)
         .filter(Diary.user_id == user_id, Diary.diary_date >= cutoff)
         .order_by(Diary.diary_date.desc())
         .limit(days)
         .all()
     )
+    for d in diaries:
+        d.content = decrypt(d.content)
+    return diaries
 
 
 def get_diary_list(
@@ -123,7 +128,7 @@ def get_diary_list(
         {
             "diary_id": d.id,
             "diary_date": str(d.diary_date),
-            "content": d.content,
+            "content": decrypt(d.content),
             "primary_emotion": d.primary_emotion,
             "emotion_intensity": d.emotion_intensity,
             "emotion_summary": d.emotion_summary,
@@ -136,7 +141,10 @@ def get_diary_list(
 
 def get_diary_detail(db: Session, diary_id: int) -> Diary | None:
     """일기 상세 조회 (대화 내역 포함)"""
-    return db.query(Diary).filter(Diary.id == diary_id).first()
+    diary = db.query(Diary).filter(Diary.id == diary_id).first()
+    if diary:
+        diary.content = decrypt(diary.content)
+    return diary
 
 
 def delete_diary(db: Session, diary_id: int) -> bool:

@@ -93,6 +93,8 @@ export default function DiaryListPage() {
             ))}
           </div>
         )}
+        {/* 암호화 안내 */}
+        <p className="text-center text-xs text-gray-300 mt-6">🔒 일기 내용은 암호화되어 저장됩니다</p>
       </div>
     </div>
   );

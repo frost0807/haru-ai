@@ -1,6 +1,7 @@
 from app.database import SessionLocal
 from app.models.diary import Diary
 from app.models.diary_embedding import DiaryEmbedding
+from app.services.crypto_service import encrypt, decrypt
 from app.services.gemini_client import get_gemini_client
 
 _EMBEDDING_MODEL = "gemini-embedding-2-preview"
@@ -39,14 +40,14 @@ def store_diary(diary: Diary) -> None:
             .first()
         )
         if existing:
-            existing.embed_text = embed_text
+            existing.embed_text = encrypt(embed_text)
             existing.embedding = embedding
         else:
             row = DiaryEmbedding(
                 diary_id=diary.id,
                 user_id=diary.user_id,
                 diary_date=str(diary.diary_date),
-                embed_text=embed_text,
+                embed_text=encrypt(embed_text),
                 embedding=embedding,
                 primary_emotion=diary.primary_emotion,
                 secondary_emotion=diary.secondary_emotion,
@@ -86,7 +87,7 @@ def search(user_id: str, query: str, top_k: int = 5) -> list[dict]:
             {
                 "diary_id": r.diary_id,
                 "diary_date": r.diary_date,
-                "document": r.embed_text,
+                "document": decrypt(r.embed_text),
                 "primary_emotion": r.primary_emotion,
             }
             for r in results
