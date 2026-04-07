@@ -14,9 +14,21 @@ export default function ChatPage() {
   const [lastMessage, setLastMessage] = useState(null);
   const [character, setCharacter] = useState(null); // { id, name, emoji, description }
   const [charLoading, setCharLoading] = useState(true);
+  const [viewportHeight, setViewportHeight] = useState(
+    window.visualViewport?.height ?? window.innerHeight
+  );
   const chatContainerRef = useRef(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+
+  // 키보드 올라올 때 실제 보이는 높이 추적 (Android/iOS 대응)
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportHeight(window.visualViewport?.height ?? window.innerHeight);
+    };
+    window.visualViewport?.addEventListener("resize", handleResize);
+    return () => window.visualViewport?.removeEventListener("resize", handleResize);
+  }, []);
 
   // DB에서 저장된 캐릭터 불러오기 (없으면 선택 페이지로)
   useEffect(() => {
@@ -110,7 +122,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-50 flex flex-col items-center overflow-hidden">
+    <div className="fixed inset-x-0 top-0 bg-gray-50 flex flex-col items-center overflow-hidden" style={{ height: viewportHeight }}>
       <div className="w-full max-w-lg flex flex-col h-full px-4 pt-6 pb-4">
 
         {/* 헤더 */}

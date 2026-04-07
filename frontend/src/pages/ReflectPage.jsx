@@ -7,8 +7,19 @@ export default function ReflectPage() {
   const [items, setItems] = useState([]); // [{ question, answer, sources, loading }]
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [viewportHeight, setViewportHeight] = useState(
+    window.visualViewport?.height ?? window.innerHeight
+  );
   const navigate = useNavigate();
   const bottomRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportHeight(window.visualViewport?.height ?? window.innerHeight);
+    };
+    window.visualViewport?.addEventListener("resize", handleResize);
+    return () => window.visualViewport?.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (bottomRef.current) {
@@ -58,7 +69,7 @@ export default function ReflectPage() {
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-50 flex flex-col overflow-hidden">
+    <div className="fixed inset-x-0 top-0 bg-gray-50 flex flex-col overflow-hidden" style={{ height: viewportHeight }}>
       {/* 헤더 */}
       <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
         <button
