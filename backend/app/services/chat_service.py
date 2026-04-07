@@ -1,3 +1,4 @@
+import logging
 import uuid
 from datetime import date, datetime, timedelta
 
@@ -7,6 +8,8 @@ from sqlalchemy.orm import Session
 from app.services import diary_service, emotion_service, rag_service
 from app.services.characters import get_character
 from app.services.gemini_client import get_gemini_client, CHAT_MODEL
+
+logger = logging.getLogger("haruai.chat")
 
 # AI가 종료를 제안할 때 포함하는 신호 문구
 _READY_SIGNALS = ["일기 정리해줄까", "일기 써줄까", "일기로 남겨줄까"]
@@ -176,10 +179,17 @@ def send_message(session_id: str, user_message: str) -> dict:
     ai_message = response.text.strip()
     session["history"].append({"role": "model", "content": ai_message})
 
+    signals_found = [s for s in _READY_SIGNALS if s in ai_message]
     status = (
         "ready_to_finish"
         if _is_ready_to_finish(ai_message, session["turn_count"])
         else "in_progress"
+    )
+
+    logger.info(
+        "[%s] turn=%d | use_rag=%s | status=%s | signals=%s\n  user: %s\n  ai:   %s",
+        session_id, session["turn_count"], use_rag, status, signals_found,
+        user_message[:100], ai_message[:200],
     )
 
     return {"session_id": session_id, "message": ai_message, "status": status}
