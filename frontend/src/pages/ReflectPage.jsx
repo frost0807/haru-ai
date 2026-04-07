@@ -11,7 +11,9 @@ export default function ReflectPage() {
   const bottomRef = useRef(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ block: "nearest" });
+    }
   }, [items]);
 
   const handleSubmit = async () => {
@@ -56,7 +58,7 @@ export default function ReflectPage() {
   };
 
   return (
-    <div className="bg-gray-50 flex flex-col overflow-hidden" style={{ height: "100dvh" }}>
+    <div className="fixed inset-0 bg-gray-50 flex flex-col overflow-hidden">
       {/* 헤더 */}
       <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
         <button

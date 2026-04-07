@@ -14,7 +14,7 @@ export default function ChatPage() {
   const [lastMessage, setLastMessage] = useState(null);
   const [character, setCharacter] = useState(null); // { id, name, emoji, description }
   const [charLoading, setCharLoading] = useState(true);
-  const bottomRef = useRef(null);
+  const chatContainerRef = useRef(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -26,9 +26,11 @@ export default function ChatPage() {
       .finally(() => setCharLoading(false));
   }, [navigate]);
 
-  // 새 메시지 추가 시 자동 스크롤
+  // 새 메시지 추가 시 채팅 컨테이너 자동 스크롤 (페이지 스크롤 방지)
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages]);
 
   // AI 응답 완료 후 입력창 포커스
@@ -108,7 +110,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="bg-gray-50 flex flex-col items-center overflow-hidden" style={{ height: "100dvh" }}>
+    <div className="fixed inset-0 bg-gray-50 flex flex-col items-center overflow-hidden">
       <div className="w-full max-w-lg flex flex-col h-full px-4 pt-6 pb-4">
 
         {/* 헤더 */}
@@ -134,7 +136,7 @@ export default function ChatPage() {
         </div>
 
         {/* 채팅 영역 */}
-        <div className="flex-1 min-h-0 bg-gray-100 rounded-2xl p-4 overflow-y-auto">
+        <div ref={chatContainerRef} className="flex-1 min-h-0 bg-gray-100 rounded-2xl p-4 overflow-y-auto">
           {status === "idle" ? (
             <div className="h-full flex flex-col items-center justify-center gap-4">
               <p className="text-gray-400 text-sm">오늘 하루 어땠나요?</p>
@@ -176,7 +178,6 @@ export default function ChatPage() {
                   </div>
                 </div>
               )}
-              <div ref={bottomRef} />
             </>
           )}
         </div>
