@@ -1,5 +1,5 @@
 import uuid
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from google.genai import types
 from sqlalchemy.orm import Session
@@ -67,6 +67,44 @@ def _to_gemini_contents(history: list[dict]) -> list[types.Content]:
     ]
 
 
+def _build_rag_contents(history: list[dict], user_id: str, user_message: str, today: date) -> list[types.Content]:
+    """RAG 검색 결과를 현재 턴 사용자 메시지에 주입. 실패하면 기본 contents 반환"""
+    try:
+        results = rag_service.search(user_id, user_message, top_k=3)
+    except Exception:
+        return _to_gemini_contents(history)
+
+    if not results:
+        return _to_gemini_contents(history)
+
+    # 최근 7일 이내 일기는 이미 system_prompt에 포함되므로 제외
+    cutoff = (today - timedelta(days=7)).isoformat()
+    filtered = [r for r in results if r["diary_date"] < cutoff]
+
+    if not filtered:
+        return _to_gemini_contents(history)
+
+    # 날짜 레이블 + 미리보기
+    lines = []
+    for r in filtered:
+        diff = (today - date.fromisoformat(r["diary_date"])).days
+        if diff < 14:
+            label = f"{diff}일 전 ({r['diary_date'][5:]})"
+        elif diff < 60:
+            label = f"{diff // 7}주 전 ({r['diary_date'][5:]})"
+        else:
+            label = f"{diff // 30}달 전 ({r['diary_date'][5:]})"
+        lines.append(f"- {label}: {r['document'][:150]}")
+
+    context_block = "[관련된 과거 일기 (자동 참고)]\n" + "\n".join(lines)
+
+    # 마지막 user 메시지에만 컨텍스트 주입 (session history는 그대로 유지)
+    enriched_message = f"{context_block}\n\n---\n\n{user_message}"
+    contents = _to_gemini_contents(history[:-1])
+    contents.append(types.Content(role="user", parts=[types.Part(text=enriched_message)]))
+    return contents
+
+
 def _is_ready_to_finish(ai_message: str, turn_count: int) -> bool:
     """대화 종료 가능 여부 판단 (5~10회 대화 기준)"""
     if turn_count >= 10:
@@ -121,11 +159,18 @@ def send_message(session_id: str, user_message: str) -> dict:
     session["history"].append({"role": "user", "content": user_message})
     session["turn_count"] += 1
 
-    # Gemini 호출
+    # Gemini 호출 — 3턴 이상 + 10자 이상일 때 RAG 컨텍스트 주입
     client = get_gemini_client()
+    use_rag = session["turn_count"] >= 3 and len(user_message.strip()) >= 10
+    if use_rag:
+        contents = _build_rag_contents(
+            session["history"], session["user_id"], user_message, session["diary_date"]
+        )
+    else:
+        contents = _to_gemini_contents(session["history"])
     response = client.models.generate_content(
         model=CHAT_MODEL,
-        contents=_to_gemini_contents(session["history"]),
+        contents=contents,
         config=types.GenerateContentConfig(system_instruction=session["system_prompt"]),
     )
     ai_message = response.text.strip()

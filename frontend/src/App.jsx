@@ -6,6 +6,7 @@ import DiaryListPage from "./pages/DiaryListPage";
 import DiaryDetailPage from "./pages/DiaryDetailPage";
 import CharacterSelectPage from "./pages/CharacterSelectPage";
 import LoginPage from "./pages/LoginPage";
+import ReflectPage from "./pages/ReflectPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorBoundary from "./components/ErrorBoundary";
 
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
             <Route path="/diary" element={<ProtectedRoute><DiaryListPage /></ProtectedRoute>} />
             <Route path="/diary/:id" element={<ProtectedRoute><DiaryDetailPage /></ProtectedRoute>} />
+            <Route path="/reflect" element={<ProtectedRoute><ReflectPage /></ProtectedRoute>} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

@@ -33,6 +33,12 @@ export default function DiaryListPage() {
           </div>
           <div className="flex items-center gap-2">
             <button
+              onClick={() => navigate("/reflect")}
+              className="text-indigo-400 hover:text-indigo-600 text-sm px-3 py-2 rounded-full border border-indigo-200 hover:border-indigo-400 transition"
+            >
+              나와의 대화
+            </button>
+            <button
               onClick={() => navigate("/chat")}
               className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-medium transition"
             >

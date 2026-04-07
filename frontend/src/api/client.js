@@ -37,6 +37,10 @@ export const getDiary = (diaryId) =>
 export const deleteDiary = (diaryId) =>
   api.delete(`/diary/${diaryId}`);
 
+// 나와의 대화
+export const askReflect = (question) =>
+  api.post("/reflect/ask", { user_id: _userId, question });
+
 // 사용자 캐릭터 설정
 export const getUserCharacter = () =>
   api.get(`/users/${_userId}/character`);
