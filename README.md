@@ -15,6 +15,8 @@
 - **캐릭터 선택** — 하루(공감형), 솔(정리형), 밝음(활기찬) 중 오늘 기분에 맞는 친구 선택
 - **감정 분석** — 15가지 감정 중 대표 감정 태깅 및 한 줄 감정 요약
 - **RAG 검색** — 과거 일기를 임베딩해 맥락 기반 대화 ("어제 그 일은 어떻게 됐어?")
+- **나와의 대화** — 쌓인 일기를 바탕으로 자연어로 질문 ("요즘 내가 자주 느끼는 감정이 뭐야?")
+- **일기 암호화** — Fernet(AES-128) 대칭 암호화로 DB 저장 시 내용 보호
 - **Google 로그인** — Supabase Auth 기반 OAuth 인증
 - **PWA 지원** — 모바일 홈 화면 설치 가능
 
@@ -25,7 +27,7 @@
 | 구분 | 기술 |
 |------|------|
 | Backend | FastAPI, Python |
-| LLM | Gemini 3.1 Flash Lite Preview |
+| LLM | Gemini 2.5 Flash |
 | Embedding | Gemini Embedding 2 Preview |
 | Vector DB | pgvector (PostgreSQL 확장) |
 | RDB | PostgreSQL (Supabase) |
@@ -52,11 +54,14 @@ haru-ai/
 │       │   ├── diary_service.py      # 일기 CRUD + 생성
 │       │   ├── emotion_service.py    # 감정 분석
 │       │   ├── rag_service.py        # 임베딩 + 검색
+│       │   ├── reflect_service.py    # 나와의 대화 (RAG Q&A)
+│       │   ├── crypto_service.py     # 일기 암호화/복호화
 │       │   ├── characters.py         # 캐릭터 정의
 │       │   └── gemini_client.py      # Gemini API 클라이언트
 │       └── routers/
 │           ├── chat.py           # /api/v1/chat/*
 │           ├── diary.py          # /api/v1/diary/*
+│           ├── reflect.py        # /api/v1/reflect/*
 │           └── user.py           # /api/v1/users/*
 ├── frontend/
 │   └── src/
@@ -70,7 +75,8 @@ haru-ai/
 │           ├── CharacterSelectPage.jsx
 │           ├── ChatPage.jsx
 │           ├── DiaryListPage.jsx
-│           └── DiaryDetailPage.jsx
+│           ├── DiaryDetailPage.jsx
+│           └── ReflectPage.jsx
 └── docs/
     ├── 01_기능정의서.md
     ├── 02_아키텍처.md
@@ -137,6 +143,7 @@ npm run dev
 GEMINI_API_KEY=your-gemini-api-key
 DATABASE_URL=postgresql://user:password@host:port/dbname
 ALLOWED_ORIGINS=http://localhost:5173,https://your-domain.vercel.app
+ENCRYPTION_KEY=your-fernet-key  # python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 ```
 
 ### Frontend `.env`
