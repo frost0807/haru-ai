@@ -92,7 +92,7 @@ async def root():
     return {"message": "하루AI API 서버", "version": "0.1.0"}
 
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 async def health(db: Session = Depends(get_db)):
     """DB 연결 확인 — Supabase 잠김 방지 ping용"""
     db.execute(text("SELECT 1"))
